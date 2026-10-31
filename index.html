@@ -3742,6 +3742,7 @@ details:not(.bab)>summary::marker{content:""}
 details:not(.bab)>summary::before{content:"\25B8";display:inline-block;width:1em;color:var(--teal,#0a7)}
 details:not(.bab)[open]>summary::before{content:"\25BE"}
 .bab>summary::marker{content:""}
+details:not([open])>:not(summary){display:none!important}
 </style><script>
 /*ipad-fix: tombol hapus pencarian + buka/tutup lipatan yang konsisten di WebKit (iPad/iPhone)*/
 (()=>{
@@ -3761,5 +3762,9 @@ document.addEventListener('click',e=>{
  if(e.target.closest('a,button,input,select,textarea'))return;
  const d=s.parentElement;if(!d||d.tagName!=='DETAILS'||d.querySelector(':scope>summary')!==s)return;
  e.preventDefault();d.open=!d.open;},true);
+/*WebKit kadang tidak menyusun ulang tinggi halaman setelah lipatan ditutup (ruang kosong tertinggal):
+ paksa tata letak dihitung ulang setiap kali ada lipatan yang menutup, termasuk yang ditutup otomatis*/
+document.addEventListener('toggle',e=>{const d=e.target;if(!d||d.tagName!=='DETAILS'||d.open)return;
+ requestAnimationFrame(()=>{const v=d.style.display;d.style.display='none';void d.offsetHeight;d.style.display=v;});},true);
 })();
 </script><!--/ipad-fix-->ody></html>
