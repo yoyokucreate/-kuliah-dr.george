@@ -3727,4 +3727,39 @@ if(localStorage.getItem('pp')!=='1')return;}catch(e){return}
 document.querySelectorAll('a[data-lokal]').forEach(a=>{const b=document.createElement('a');
 b.href='kuliah-george://rel/'+a.dataset.lokal.split('/').map(encodeURIComponent).join('/');
 b.textContent='Buka di PowerPoint';b.className='lokal';a.after(b);});})();
-</script></body></html>
+</script></b<!--ipad-fix--><style>
+.cari-wrap{position:relative}
+.cari-wrap .cari{padding-right:2.6rem}
+.cari::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none;display:none}
+.hapus-cari{position:absolute;right:.35rem;top:50%;transform:translateY(-50%);width:2rem;height:2rem;
+ border:0;border-radius:999px;background:var(--rule,#ddd);color:var(--ink,#222);font:600 1rem/2rem system-ui,sans-serif;
+ text-align:center;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.hapus-cari[hidden]{display:none}
+summary{touch-action:manipulation;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+details:not(.bab)>summary{list-style:none}
+details:not(.bab)>summary::-webkit-details-marker{display:none}
+details:not(.bab)>summary::marker{content:""}
+details:not(.bab)>summary::before{content:"\25B8";display:inline-block;width:1em;color:var(--teal,#0a7)}
+details:not(.bab)[open]>summary::before{content:"\25BE"}
+.bab>summary::marker{content:""}
+</style><script>
+/*ipad-fix: tombol hapus pencarian + buka/tutup lipatan yang konsisten di WebKit (iPad/iPhone)*/
+(()=>{
+const q=document.getElementById('cari');
+if(q&&!q.closest('.cari-wrap')){
+ const w=document.createElement('div');w.className='cari-wrap';q.before(w);w.append(q);
+ const b=document.createElement('button');b.type='button';b.className='hapus-cari';
+ b.setAttribute('aria-label','Hapus pencarian');b.textContent='✕';w.append(b);
+ const atur=()=>{b.hidden=q.value==='';};atur();
+ q.addEventListener('input',atur);q.addEventListener('search',atur);
+ b.addEventListener('click',()=>{q.value='';atur();
+  q.dispatchEvent(new Event('input',{bubbles:true}));q.dispatchEvent(new Event('search'));q.blur();});
+}
+/*Klik/ketuk pada <summary>: tutup-buka diatur sendiri (sekali per ketuk), tautan/tombol di dalamnya tetap jalan*/
+document.addEventListener('click',e=>{
+ const s=e.target.closest&&e.target.closest('summary');if(!s)return;
+ if(e.target.closest('a,button,input,select,textarea'))return;
+ const d=s.parentElement;if(!d||d.tagName!=='DETAILS'||d.querySelector(':scope>summary')!==s)return;
+ e.preventDefault();d.open=!d.open;},true);
+})();
+</script><!--/ipad-fix-->ody></html>
