@@ -3727,7 +3727,7 @@ if(localStorage.getItem('pp')!=='1')return;}catch(e){return}
 document.querySelectorAll('a[data-lokal]').forEach(a=>{const b=document.createElement('a');
 b.href='kuliah-george://rel/'+a.dataset.lokal.split('/').map(encodeURIComponent).join('/');
 b.textContent='Buka di PowerPoint';b.className='lokal';a.after(b);});})();
-</script></b<!--ipad-fix--><style>
+</script><!--ipad-fix--><style>
 .cari-wrap{position:relative}
 .cari-wrap .cari{padding-right:2.6rem}
 .cari::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none;display:none}
@@ -3767,4 +3767,4 @@ document.addEventListener('click',e=>{
 document.addEventListener('toggle',e=>{const d=e.target;if(!d||d.tagName!=='DETAILS'||d.open)return;
  requestAnimationFrame(()=>{const v=d.style.display;d.style.display='none';void d.offsetHeight;d.style.display=v;});},true);
 })();
-</script><!--/ipad-fix-->ody></html>
+</script><!--/ipad-fix--></body></html>
