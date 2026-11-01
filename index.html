@@ -3994,10 +3994,15 @@ wadah.prepend(tb);const asal=tops.map(s=>[s,s.parentNode,s.nextSibling]);
 const daftar=document.createElement('div');daftar.id='semua-topik';daftar.hidden=true;babs[0].before(daftar);
 const no=s=>parseInt((s.querySelector('h3')||s).textContent)||999;let mode=false;
 tb.addEventListener('click',()=>{mode=!mode;tb.setAttribute('aria-pressed',mode);
- if(mode){[...tops].sort((a,b)=>no(a)-no(b)).forEach(s=>daftar.appendChild(s));daftar.hidden=false;babs.forEach(b=>b.hidden=true);}
+ if(mode){/*semua-eksklusif: menyalakan 'Semua topik' mematikan filter/pencarian lain*/
+  if(aktif){aktif=null;chips.forEach(x=>x.setAttribute('aria-pressed','false'));}
+  if(q.value.trim()!=='')q.value='';
+  if(typeof saring==='function')saring();
+  [...tops].sort((a,b)=>no(a)-no(b)).forEach(s=>daftar.appendChild(s));daftar.hidden=false;babs.forEach(b=>b.hidden=true);}
  else{asal.slice().reverse().forEach(([s,p,n])=>p.insertBefore(s,n&&n.parentNode===p?n:null));daftar.hidden=true;aturBab();}
 });
-const jaga=()=>{if(mode)babs.forEach(b=>b.hidden=true);};q.addEventListener('input',jaga);chips.forEach(c=>c.addEventListener('click',jaga));})();
+/*semua-eksklusif: memilih filter lain atau mengetik pencarian saat 'Semua topik' aktif -> 'Semua topik' dimatikan (seperti filter lain)*/
+const jaga=()=>{if(mode)tb.click();};q.addEventListener('input',jaga);chips.forEach(c=>c.addEventListener('click',jaga));})();
 /*panel-tampil: slide, PDF, dan dokumen Google Drive tampil di panel di dalam katalog (bukan tab baru).
  Klik bahan lain -> isi panel diganti. Tombol x / Esc -> panel ditutup. Cmd/Ctrl+klik tetap membuka tab baru.
  Tautan luar non-Google (DOI, jurnal) dibuka di satu tab bernama yang dipakai ulang.*/
